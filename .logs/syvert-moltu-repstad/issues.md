@@ -6,7 +6,7 @@
 - [x] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Planlegge én eller to utvidelser, f.eks. filopplasting (PDF/DOCX) eller flere søknadsversjoner i økten. (løst 2026-11-05)
 - [ ] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Lage fiktive eksempel-CV-er og annonser. (demomodus planlagt i brief 2026-11-05)
 - [ ] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Velge AI-tjeneste (lav kostnad/gratisnivå), bruke mock-svar under utvikling og beskrive personvernvalget.
-- [ ] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Skissere hvordan koblinger, mangler og utkast presenteres i grensesnittet.
+- [x] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Skissere hvordan koblinger, mangler og utkast presenteres i grensesnittet. (løst 2026-11-11, UX-design)
 - [x] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Repo-plan: testdata i egen mappe, API-nøkkel i `.env` som ikke committes. (løst 2026-11-05)
 - [x] 2026-11-05 [tilbakemelding-product-brief](999-2026-11-05-10-26-05-tilbakemelding-product-brief.md) — Gå videre til PRD (brief oppdatert 2026-11-05) (løst 2026-11-05, PRD ferdigstilt)
 - [ ] 2026-11-05 [prd](998-2026-11-05-11-19-28-prd.md) — Avklare terskel for riktig kravtype (PRD §9 spm. 1) før evalueringen kjøres.
@@ -14,3 +14,5 @@
 - [ ] 2026-11-05 [prd](998-2026-11-05-11-19-28-prd.md) — Avklare om T6 teller i samlet bestått (PRD §9 spm. 3) før evalueringen kjøres.
 - [ ] 2026-11-05 [prd](998-2026-11-05-11-19-28-prd.md) — Gruppen må bekrefte foreløpig budsjettramme på 200 kr (PRD §9 spm. 4) før modellvalg.
 - [ ] 2026-11-05 [prd](998-2026-11-05-11-19-28-prd.md) — Vurdere brukerutprøving med målgruppen etter at MVP-en virker (PRD §9 spm. 7).
+- [ ] 2026-11-11 [ux-design](997-2026-11-11-22-37-57-ux-design.md) — Ta stilling til merknadene til arkitekturen i EXPERIENCE.md (typefelt for forslag, flagg for redigert søknadsutkast, metadata på lagrede svar).
+- [ ] 2026-11-11 [ux-design](997-2026-11-11-22-37-57-ux-design.md) — Kontroller Excalidraw-skissene visuelt på excalidraw.com (bare filformatet er kontrollert).
