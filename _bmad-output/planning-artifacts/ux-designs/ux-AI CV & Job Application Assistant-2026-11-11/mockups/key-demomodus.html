@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hovedside – demomodus</title>
+<style>
+/* Styres av: EXPERIENCE.md Key Flows UJ-2; State Patterns: Demomodus; Component Patterns: Demobanner, Testkombinasjonsliste, Låst felt, Metadatalinje, Deaktivert knapp med forklaring
+   Spinene (DESIGN.md / EXPERIENCE.md) gjelder ved konflikt med denne mockupen. */
+
+/* Tokens (DESIGN.md, retning 1 «Rolig og ryddig»):
+   bg #F5F7FA · surface #FFFFFF · border #D9DEE5 · field-border #8A94A6 · text #1F2937 · muted #4B5563
+   app-title i text (ikke blå) · primary #1D4ED8 / on-primary #FFFFFF · focus-ring #1D4ED8 (2px + 2px offset)
+   covered #166534/#DCFCE7 · not-stated #92400E/#FEF3C7 · missing #991B1B/#FEE2E2
+   danger #991B1B / danger-bg #FEF2F2 / danger-border #FCA5A5 · demo #78350F / #FEF3C7 / #D97706
+   disabled: bg #E5E7EB, text #4B5563
+   radius 8px (kort, felt, knapper), 999px (statusmerker) · systemfont · base 15px / 1.55 */
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #e9e9ec; color: #1F2937; }
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 16px 64px; }
+.note { max-width: 900px; color: #374151; margin: 0 0 18px; }
+.note h1 { font-size: 22px; margin: 0 0 6px; }
+.note p { margin: 0 0 4px; }
+.cap { font-size: 13px; font-weight: 600; color: #4B5563; text-transform: uppercase; letter-spacing: .05em; margin: 28px 0 8px; }
+.frame { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,.12); position: relative; }
+.chrome { height: 34px; background: #dedfe3; display: flex; align-items: center; gap: 6px; padding: 0 12px; }
+.chrome span { width: 11px; height: 11px; border-radius: 50%; background: #b9bbc1; }
+.chrome .url { margin-left: 14px; font-size: 12px; color: #555; background: #f4f4f6; padding: 3px 12px; border-radius: 6px; }
+.app { background: #F5F7FA; padding-bottom: 28px; }
+.top { background: #fff; border-bottom: 1px solid #D9DEE5; padding: 16px 28px; }
+.brand { font-size: 20px; font-weight: 700; color: #1F2937; }
+.tagline { color: #4B5563; font-size: 14px; }
+.demo { background: #FEF3C7; color: #78350F; border-bottom: 2px solid #D97706; padding: 12px 28px; font-size: 14px; }
+.sec { background: #fff; border: 1px solid #D9DEE5; border-radius: 8px; margin: 20px 28px 0; padding: 20px 22px; }
+.sec h2 { font-size: 18px; margin: 0 0 12px; display: flex; align-items: center; gap: 10px; }
+.num { background: #1D4ED8; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; flex: none; }
+h3 { font-size: 15px; margin: 18px 0 6px; color: #374151; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+label, .lbl { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.field { border: 1px solid #8A94A6; border-radius: 8px; padding: 12px; font-size: 14px; background: #fff; min-height: 150px; white-space: pre-line; }
+.field.ph { color: #4B5563; }
+.field.ro { background: #F3F4F6; border-style: dashed; }
+.field.err { border: 2px solid #991B1B; }
+.field.focus { outline: 2px solid #1D4ED8; outline-offset: 2px; }
+.count { font-size: 13px; color: #4B5563; text-align: right; margin-top: 4px; }
+.ferr { font-size: 13px; color: #991B1B; font-weight: 600; margin-top: 4px; }
+.privacy { display: flex; gap: 12px; margin-top: 16px; padding: 12px 14px; background: #EFF4FF; border: 1px solid #C7D7FE; border-radius: 8px; font-size: 14px; }
+.box { width: 18px; height: 18px; border: 2px solid #1F2937; border-radius: 4px; flex: none; margin-top: 2px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; background: #fff; }
+.box.on { background: #1D4ED8; border-color: #1D4ED8; color: #fff; }
+.chk { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; margin-top: 8px; }
+.row { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+.row .hint { color: #4B5563; font-size: 13px; }
+.spacer { flex: 1; }
+button { font: inherit; font-size: 14px; font-weight: 600; padding: 9px 16px; border-radius: 8px; }
+.primary { background: #1D4ED8; color: #fff; border: 0; }
+.secondary { background: #fff; color: #1D4ED8; border: 1px solid #1D4ED8; }
+.ghost { background: transparent; color: #1F2937; border: 1px solid #8A94A6; }
+button[disabled] { background: #E5E7EB; color: #4B5563; border: 1px solid #D1D5DB; }
+.alert { border: 1px solid #FCA5A5; background: #FEF2F2; color: #7F1D1D; border-left: 4px solid #991B1B; border-radius: 8px; padding: 12px 14px; margin-top: 14px; font-size: 14px; }
+.alert strong { color: #991B1B; }
+.alert .row { margin-top: 10px; }
+.loading { display: flex; align-items: center; gap: 10px; color: #1F2937; font-size: 14px; }
+.spin { width: 16px; height: 16px; border: 3px solid #C7D7FE; border-top-color: #1D4ED8; border-radius: 50%; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: #374151; margin: 0 0 4px; }
+table { width: 100%; border-collapse: collapse; border: 1px solid #E5E7EB; }
+th { text-align: left; font-size: 13px; background: #F3F4F6; color: #374151; padding: 9px 12px; border-bottom: 1px solid #E5E7EB; }
+td { padding: 10px 12px; border-bottom: 1px solid #EEF0F3; font-size: 14px; vertical-align: top; }
+th:nth-child(1) { width: 34%; } th:nth-child(2) { width: 16%; }
+.st { display: inline-block; white-space: nowrap; font-size: 13px; font-weight: 600; padding: 2px 10px; border-radius: 999px; }
+.ok { background: #DCFCE7; color: #166534; } .na { background: #FEF3C7; color: #92400E; } .no { background: #FEE2E2; color: #991B1B; }
+.q { font-style: italic; }
+.dash { color: #4B5563; }
+.warn { font-size: 13px; font-weight: 600; color: #92400E; }
+.sugg { border: 1px solid #E5E7EB; border-left: 4px solid #1D4ED8; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; }
+.sugg p { margin: 4px 0; }
+.kind { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #1D4ED8; margin-right: 8px; }
+.link { font-size: 13px; color: #4B5563; }
+.tag { background: #FEF3C7; color: #92400E; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.draft { min-height: 170px; }
+.meta { font-size: 13px; color: #4B5563; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; }
+.tlist { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.topt { border: 1px solid #D9DEE5; border-radius: 8px; padding: 9px 12px; display: flex; gap: 10px; font-size: 14px; background: #fff; }
+.topt.sel { border: 2px solid #1D4ED8; background: #EFF4FF; }
+.radio { width: 16px; height: 16px; border: 2px solid #1F2937; border-radius: 50%; flex: none; margin-top: 3px; }
+.topt.sel .radio { border-color: #1D4ED8; box-shadow: inset 0 0 0 3px #fff; background: #1D4ED8; }
+.topt small { display: block; color: #4B5563; }
+.lockinfo { font-size: 13px; color: #374151; margin-top: 10px; }
+.disabled-why { font-size: 13px; color: #4B5563; }
+.overlay { position: absolute; inset: 34px 0 0 0; background: rgba(17,24,39,.45); display: flex; align-items: flex-start; justify-content: center; padding-top: 180px; }
+.dialog { background: #fff; border-radius: 10px; width: 460px; padding: 22px 24px; box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+.dialog h4 { margin: 0 0 8px; font-size: 17px; }
+.dialog p { margin: 0 0 16px; color: #374151; font-size: 14px; }
+.dialog .row { justify-content: flex-end; }
+.copied { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+
+</style></head><body><div class="page">
+<div class="note"><h1>Hovedside – demomodus</h1><p>Ingrid (sensor) starter appen uten API-nøkkel. Det gule banneret står øverst hele tiden. Hun velger T1, og de lagrede svarene vises i samme visning som i vanlig modus. Ingen personverninfo vises, fordi ingenting sendes.</p><p>Innholdet i resultatene er gjenbrukt fra Emma-eksemplet for illustrasjon. De faktiske testdataene lages senere.</p></div>
+<div class="cap">Tilstand M1 – demomodus med lagrede svar for T1 (UJ-2 steg 2–4). «Kopier» vist rett etter klikk.</div>
+<div class="frame"><div class="chrome"><span></span><span></span><span></span><div class="url">localhost — AI CV-assistent (demomodus)</div></div>
+<div class="app"><div class="demo" role="status"><strong>Demomodus</strong> – du ser lagrede svar for fiktive eksempler. Ingenting sendes til en AI-tjeneste. Vil du analysere egen tekst, trenger du vanlig modus med API-nøkkel (se README).</div><header class="top"><div class="brand">AI CV-assistent</div>
+<div class="tagline">Se hvordan CV-en din møter kravene i en stillingsannonse, og få forslag og et søknadsutkast basert på det som faktisk står i CV-en.</div></header><section class="sec"><h2><span class="num">1</span> Velg testkombinasjon</h2>
+<div class="tlist" role="radiogroup"><div class="topt sel"><span class="radio"></span><div><strong>T1 – God match</strong><small>De fleste krav dekket</small></div></div><div class="topt"><span class="radio"></span><div><strong>T2 – Delvis match</strong><small>Dekket og ikke oppgitt</small></div></div><div class="topt"><span class="radio"></span><div><strong>T3 – Svak match</strong><small>Flere krav mangler</small></div></div><div class="topt"><span class="radio"></span><div><strong>T4 – Annen formulering</strong><small>Relevant erfaring, andre ord</small></div></div><div class="topt"><span class="radio"></span><div><strong>T5 – Kort CV</strong><small>Lite informasjon</small></div></div><div class="topt"><span class="radio"></span><div><strong>T6 – Språkscenario</strong><small>Engelsk annonse, norsk resultat</small></div></div></div>
+<div class="grid2">
+<div><label>CV-tekst (fiktiv CV1)</label><div class="field ro">Emma Larsen
+Bachelor i økonomi og administrasjon, NTNU (2023–2026)
+Bacheloroppgave: Budsjettstyring i små bedrifter
+Kundeveileder (deltid), Midtbyen Sparebank (2024–2026)
+Studentprosjekt: bokføring for Linjeforeningen Kapital (2025)
+Har ikke førerkort
+…
+Annet: Avansert Excel (pivottabeller, XOPPSLAG)</div></div>
+<div><label>Annonsetekst (fiktiv A1)</label><div class="field ro">Junior økonomikonsulent – Nordvik Regnskap AS
+Vi søker deg som har bachelorgrad innen økonomi eller administrasjon og erfaring med regnskap eller bokføring. Du arbeider analytisk og strukturert.
+Krav: førerkort klasse B.
+Det er ønskelig med gode Excel-kunnskaper, kjennskap til Power BI og erfaring med Tripletex.
+…</div></div>
+</div>
+<div class="lockinfo">🔒 Feltene er låst i demomodus. Demomodus viser bare de forhåndsdefinerte testkombinasjonene. Slik analyserer du egen tekst: se «Vanlig modus» i README.</div>
+<div class="row"><span class="disabled-why">«Analyser på nytt»: krever vanlig modus med API-nøkkel.</span><span class="spacer"></span><button disabled>Analyser på nytt</button><button disabled>Vis analyse</button></div>
+<div class="lockinfo" style="text-align:right">«Vis analyse» er deaktivert fordi T1 allerede vises. Velg en annen testkombinasjon for å bytte.</div>
+</section><section class="sec"><h2><span class="num">2</span> Kravanalyse</h2><div class="meta"><strong>Lagret svar, ikke fasit.</strong> T1 · Kjøring 1 · Modell: [velges i arkitekturen] · Promptversjon: [v?] · Dato: [ÅÅÅÅ-MM-DD]</div><div class="legend"><span><span class="st ok">✓ Dekket</span> CV-teksten dokumenterer kravet</span>
+<span><span class="st na">? Ikke oppgitt</span> CV-teksten sier ingenting som avgjør om kravet er oppfylt – har du kompetansen, kan du legge den til og analysere på nytt</span>
+<span><span class="st no">✕ Mangler</span> CV-teksten viser at kravet ikke er oppfylt</span></div><h3>Skal-krav</h3>
+<table><thead><tr><th>Annonsekrav</th><th>Status</th><th>Kildehenvisning fra CV-en</th></tr></thead><tbody>
+<tr><td>Bachelorgrad innen økonomi eller administrasjon</td><td><span class="st ok">✓ Dekket</span></td><td class="q">«Bachelor i økonomi og administrasjon, NTNU (2023–2026)»</td></tr>
+<tr><td>Erfaring med regnskap eller bokføring</td><td><span class="st ok">✓ Dekket</span></td><td class="q">«Studentprosjekt: bokføring for Linjeforeningen Kapital (2025)»</td></tr>
+<tr><td>Analytisk og strukturert arbeidsmåte</td><td><span class="st ok">✓ Dekket</span></td><td class="q">«Bacheloroppgave: Budsjettstyring i små bedrifter»</td></tr>
+<tr><td>Førerkort klasse B</td><td><span class="st no">✕ Mangler</span></td><td class="dash">–</td></tr>
+</tbody></table>
+<h3>Ønskede kvalifikasjoner</h3>
+<table><thead><tr><th>Annonsekrav</th><th>Status</th><th>Kildehenvisning fra CV-en</th></tr></thead><tbody>
+<tr><td>Gode Excel-kunnskaper</td><td><span class="st ok">✓ Dekket</span></td><td class="q">«Avansert Excel (pivottabeller, XOPPSLAG)»</td></tr>
+<tr><td>Kjennskap til Power BI</td><td><span class="st na">? Ikke oppgitt</span></td><td class="dash">–</td></tr>
+<tr><td>Erfaring med Tripletex</td><td><span class="st na">? Ikke oppgitt</span></td><td><span class="warn">⚠ Kildehenvisningen kunne ikke bekreftes i CV-teksten, så kravet vises ikke som dekket.</span></td></tr>
+</tbody></table></section><section class="sec"><h2><span class="num">3</span> CV-forbedringsforslag</h2>
+<div class="sugg"><div><span class="kind">Flytt</span><strong>Løft Excel-kompetansen opp i profilteksten</strong></div>
+<p>Annonsen ønsker gode Excel-kunnskaper. I CV-en står dette nederst under «Annet», der det er lett å overse.</p>
+<div class="link">Knyttet til: Gode Excel-kunnskaper</div></div>
+<div class="sugg"><div><span class="kind">Fremhev</span><strong>Beskriv studentprosjektet med bokføring under erfaring</strong></div>
+<p>Prosjektet for linjeforeningen er den eneste regnskapserfaringen i CV-en, men står bare som én linje. Beskriv kort hva du gjorde, slik at erfaringen kommer tydelig frem.</p>
+<div class="link">Knyttet til: Erfaring med regnskap eller bokføring</div></div>
+</section><section class="sec"><h2><span class="num">4</span> Søknadsutkast</h2>
+<div class="row" style="margin-top:0;margin-bottom:10px"><span class="spacer"></span><span class="disabled-why">Krever vanlig modus med API-nøkkel.</span><button disabled>Generer nytt søknadsutkast</button><button class="primary copied">Kopiert ✓</button></div>
+<div class="field draft">Hei,
+
+Jeg søker stillingen som junior økonomikonsulent i Nordvik Regnskap AS. I vår fullførte jeg bachelorgraden i økonomi og administrasjon ved NTNU, der jeg skrev bacheloroppgave om budsjettstyring i små bedrifter.
+
+Gjennom to år som kundeveileder i Midtbyen Sparebank har jeg lært å forklare økonomiske spørsmål enkelt og å jobbe nøyaktig …</div>
+<div class="count">Du kan redigere teksten direkte. Kontroller alltid innholdet før du bruker det.</div>
+</section></div></div>
+</div></body></html>
